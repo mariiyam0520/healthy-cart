@@ -19,7 +19,7 @@ llm = CTransformers(model=model_path, model_type="llama", local_files_only=True,
     "temperature": 0.01,
     "max_new_tokens": 300,
 })
-llm.model.to(device)
+llm.model.model.to(device)
 
 def remove_g(match):
     return match.group(1)
