@@ -40,15 +40,22 @@ def generate_recipe(food_type, ingredients, bmi):
         BMI (Body Mass Index): {bmi}
 
         According to the serving size of one adult, also provide the calorie intake for the same, and do mention total calories.
-
-        Give all the steps and calorie count in plain text form, not in a code
     """
 
     prompt = PromptTemplate(input_variables=["food_type", "ingredients", "bmi"], template=template)
     with torch.no_grad():
-        response = llm(prompt.format(food_type=food_type, ingredients=ingredients, bmi=bmi).to(device))
-    print(response)
-    return response
+        response_text = llm(prompt.format(food_type=food_type, ingredients=ingredients, bmi=bmi).to(device))
+
+    # Clean up response
+    cleaned_response = clean_response(response_text)
+
+    # Convert response to JSON format
+    response_json = {
+        "recipe": cleaned_response
+    }
+    
+    return json.dumps(response_json)
+
 
 @app.route('/generate_recipe', methods=['POST'])
 def generate_recipe_endpoint():
