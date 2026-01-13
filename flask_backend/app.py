@@ -1,4 +1,3 @@
-import torch
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from langchain.prompts import PromptTemplate
@@ -10,20 +9,10 @@ import torch
 app = Flask(__name__)
 CORS(app)
 
-# Check if GPU is available
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
-
-# Move the model to the GPU if available
-model_path = 'models/llama-2-13b-chat.ggmlv3.q2_K.bin'
-llm = CTransformers(model=model_path, model_type="llama", local_files_only=True, config={
-    "temperature": 0.01,
-    "max_new_tokens": 300,
-})
-llm.model.model.to(device)
 
 def remove_g(match):
     return match.group(1)
+
 
 def clean_response(response):
     index_of_equal = response.find("=")
@@ -33,6 +22,7 @@ def clean_response(response):
     numeric_g_pattern = re.compile(r'(\d+)g')
     response = numeric_g_pattern.sub(remove_g, response)
     return response
+
 
 def generate_recipe(food_type, ingredients, bmi):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -51,21 +41,17 @@ def generate_recipe(food_type, ingredients, bmi):
         BMI (Body Mass Index): {bmi}
 
         According to the serving size of one adult, also provide the calorie intake for the same, and do mention total calories.
+        Do not show the recipes in a code format, show it in plain text format and it should be one below other.
     """
 
-    prompt = PromptTemplate(input_variables=["food_type", "ingredients", "bmi"], template=template)
-    with torch.no_grad():
-        response_text = llm(prompt.format(food_type=food_type, ingredients=ingredients, bmi=bmi).to(device))
+    prompt = PromptTemplate(input_variables=["food_type", "ingredients", "bmi"],
+                            template=template)
 
-    # Clean up response
-    cleaned_response = clean_response(response_text)
-
-    # Convert response to JSON format
-    response_json = {
-        "recipe": cleaned_response
-    }
-    
-    return json.dumps(response_json)
+    response = llm(prompt.format(food_type=food_type,
+                   ingredients=ingredients, bmi=bmi))
+    # response = clean_response(response)
+    print(response)
+    return response
 
 
 @app.route('/generate_recipe', methods=['POST'])
@@ -93,6 +79,7 @@ def generate_recipe_endpoint():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(port=5000)

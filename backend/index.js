@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
             };
             console.log(dataSend);
             res.send({
-                message: "Login is successfully",
+                message: "Login successful",
                 alert: true,
                 data: dataSend,
             });
@@ -97,7 +97,7 @@ app.post("/userdetails", (req, res) => {
     }
 
     if (!bmi || !foodPreference) {
-        return res.status(400).json({ message: "Both BMI and food preference are required" });
+        return res.status(400).json({ message: "Both BMI and food preference is required" });
     }
 
     userModel.findOne({ email }, async (err, user) => {
@@ -164,7 +164,7 @@ app.post("/uploadProduct", async (req, res) => {
     const productData = new productModel(req.body);
     try {
         const savedProduct = await productData.save();
-        res.send({ message: "Upload successfully" });
+        res.send({ message: "Upload successful" });
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: 'Error while saving product' });
@@ -212,7 +212,7 @@ app.post("/create-checkout-session", async (req, res) => {
     }
 });
 
-mongoose.connect(process.env.MONGODB_URL || "mongodb+srv://dummyhubhai70:dummyhubhai@cluster0.eu22eny.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGODB_URL || "mongodb+srv://dummyhubhai70:noobhardy22@cluster0.eu22eny.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

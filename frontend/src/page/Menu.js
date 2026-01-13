@@ -45,7 +45,7 @@ const Menu = () => {
                                     className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]">Buy
                                 </button>
                                 <button onClick={handleAddCartProduct}
-                                    className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]">Add
+                                    className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]">Add to
                                     Cart
                                 </button>
                             </div>
@@ -57,7 +57,7 @@ const Menu = () => {
                     </>)}
             </div>
 
-            <AllProduct heading={"Related Product"} />
+            <AllProduct heading={"Related Products"} />
         </div>
     );
 };
