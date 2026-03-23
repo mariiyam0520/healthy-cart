@@ -36,7 +36,7 @@ To run this project locally, you need to have the following software installed:
 1. Clone this repository:
 
     ```shell
-    git clone https://github.com/mohammednudman/HealthyCart.git
+    git clone https://github.com/mariiyam0520/healthy-cart.git
     ```
 
 2. Navigate to the project directory:
