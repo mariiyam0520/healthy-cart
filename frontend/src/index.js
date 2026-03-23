@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {
-    createBrowserRouter,
+    createHashRouter,
     createRoutesFromElements,
     Route,
     RouterProvider,
@@ -22,8 +22,9 @@ import Cart from "./page/Cart";
 import Success from "./page/Success";
 import Cancel from "./page/Cancel";
 import UserDetails from "./component/UserDetails";
+import * as serviceWorker from "./serviceWorker";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
             <Route index element={<Home />} />
@@ -53,4 +54,5 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+serviceWorker.register();
 reportWebVitals();

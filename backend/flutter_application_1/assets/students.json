@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Arisha Ashrafi",
+    "age": 20,
+    "course": "Information Technology"
+  },
+  {
+    "name": "Sara Ali",
+    "age": 21,
+    "course": "Computer Engineering"
+  },
+  {
+    "name": "Zaid Sheikh",
+    "age": 19,
+    "course": "Data Science"
+  },
+  {
+    "name": "Fatima Noor",
+    "age": 22,
+    "course": "Software Engineering"
+  }
+]
